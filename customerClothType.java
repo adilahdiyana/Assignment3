@@ -90,7 +90,7 @@ public class customerClothType extends JFrame {
 		panel_1.setBounds(126, 36, 799, 113);
 		panel.add(panel_1);
 		
-		JLabel lbTypeVLabel = new JLabel("Information of Vehicle");
+		JLabel lbTypeVLabel = new JLabel("Information of Cloth");
 		lbTypeVLabel.setFont(new Font("Script MT Bold", Font.BOLD, 40));
 		lbTypeVLabel.setBounds(156, 13, 491, 87);
 		panel_1.add(lbTypeVLabel);
