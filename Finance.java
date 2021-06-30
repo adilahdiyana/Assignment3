@@ -1,56 +1,60 @@
-package Assignment3;
+package Assignment_3;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
-import java.awt.Color;
 import javax.swing.border.MatteBorder;
+import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import java.awt.Font;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
+import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.SystemColor;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import javax.swing.ImageIcon;
+
 
 public class Finance extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textFieldUF;
-	private JTextField textFieldMF;
-	private JTextField textFieldAF;
-	private JTextField textFieldGE;
-	private JTextField textFieldTotalEx;
-	public JTextField textFieldSalary;
-	public JTextField textFieldSales;
-	private JTextField textFieldTE;
-	private JTextField textFieldSalesss;
-	private JTextField textFieldES;
-	private JTextField textFieldNProfit;
-	private static String result;
-
+	private JTable FinanceTable;
+	private JTable model;
+	private JTextField QweekdaysTextField;
+	private JFrame frame;
+	private JTextField QWeekendTextField;
+	private JTextField PriceTextField;
+	private JTextField FeesTextField;
+	private JTextField totalEmpSalarytextField;
+	private double netProfit= 0;
+	private JTextField textField;
+	private JTextField textField_1;
+	private String totalEmSalary,prize;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				//2.2 Exception Handling
 				try {
-					Finance frame = new Finance();
+					Employee frame = new Employee();
 					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (Exception arg0) {
+					arg0.printStackTrace();
 				}
 			}
 		});
@@ -59,369 +63,405 @@ public class Finance extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Finance() {//}
-	//public Finance(String s) {
-		//this.result = s;
+	
+	public Finance(String s) {
+		this.totalEmSalary=s;
+		
+		setTitle("Clothing Rental Bussiness");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1009, 705);
+		setBounds(100, 100, 1027, 579);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 		JPanel panel = new JPanel();
-		panel.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(210, 105, 30)));
 		panel.setBackground(new Color(250, 240, 230));
-		panel.setBounds(0, 10, 991, 658);
+		panel.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(128, 0, 0)));
+		panel.setBounds(0, 0, 1007, 543);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Financial Report");
-		lblNewLabel.setFont(new Font("Script MT Bold", Font.BOLD | Font.ITALIC, 31));
-		lblNewLabel.setBounds(324, 31, 336, 80);
+				
+		JPanel panel_1 = new JPanel();
+		panel_1.setLayout(null);
+		panel_1.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(128, 0, 0)));
+		panel_1.setBackground(new Color(250, 240, 230));
+		panel_1.setBounds(21, 10, 421, 398);
+		panel.add(panel_1);
+
+		JLabel lblPQuantityWeekday = new JLabel("Quantity of customer registration in weekdays for rent");
+		lblPQuantityWeekday.setForeground(new Color(0, 0, 0));
+		lblPQuantityWeekday.setFont(new Font("Sitka Text", Font.PLAIN, 15));
+		lblPQuantityWeekday.setBounds(10, 72, 401, 30);
+		panel_1.add(lblPQuantityWeekday);
+
+		QweekdaysTextField = new JTextField();
+		QweekdaysTextField.setBackground(new Color(230, 230, 250));
+		QweekdaysTextField.setFont(new Font("Sitka Text", Font.PLAIN, 22));
+		QweekdaysTextField.setBounds(113, 96, 156, 30);
+		panel_1.add(QweekdaysTextField);
+		QweekdaysTextField.setColumns(10);
+		
+		JLabel lblQuantityOfRegistration = new JLabel("Quantity of customer registration in weekend for rent");
+		lblQuantityOfRegistration.setForeground(new Color(0, 0, 0));
+		lblQuantityOfRegistration.setFont(new Font("Sitka Text", Font.PLAIN, 15));
+		lblQuantityOfRegistration.setBounds(10, 136, 401, 30);
+		panel_1.add(lblQuantityOfRegistration);
+		
+		QWeekendTextField = new JTextField();
+		QWeekendTextField.setBackground(new Color(230, 230, 250));
+		QWeekendTextField.setFont(new Font("Sitka Text", Font.PLAIN, 22));
+		QWeekendTextField.setColumns(10);
+		QWeekendTextField.setBounds(113, 161, 156, 30);
+		panel_1.add(QWeekendTextField);
+		
+		JLabel lblPriceAmount = new JLabel("Price amount (RM)");
+		lblPriceAmount.setForeground(new Color(0, 0, 0));
+		lblPriceAmount.setFont(new Font("Sitka Text", Font.PLAIN, 17));
+		lblPriceAmount.setBounds(20, 211, 150, 30);
+		panel_1.add(lblPriceAmount);
+		
+		PriceTextField = new JTextField();
+		PriceTextField.setBackground(new Color(230, 230, 250));
+		PriceTextField.setFont(new Font("Sitka Text", Font.PLAIN, 22));
+		PriceTextField.setColumns(10);
+		PriceTextField.setBounds(255, 210, 156, 30);
+		panel_1.add(PriceTextField);
+		
+		JLabel lblExpenses = new JLabel("Total Expenses (RM)");
+		lblExpenses.setForeground(new Color(0, 0, 0));
+		lblExpenses.setFont(new Font("Sitka Text", Font.PLAIN, 17));
+		lblExpenses.setBounds(20, 256, 225, 30);
+		panel_1.add(lblExpenses);
+		
+		FeesTextField = new JTextField();
+		FeesTextField.setBackground(new Color(230, 230, 250));
+		FeesTextField.setFont(new Font("Sitka Text", Font.PLAIN, 22));
+		FeesTextField.setColumns(10);
+		FeesTextField.setBounds(255, 255, 156, 30);
+		panel_1.add(FeesTextField);
+		
+		totalEmpSalarytextField = new JTextField();
+		totalEmpSalarytextField.setBackground(new Color(230, 230, 250));
+		totalEmpSalarytextField.setFont(new Font("Sitka Banner", Font.PLAIN, 22));
+		totalEmpSalarytextField.setColumns(10);
+		totalEmpSalarytextField.setBounds(255, 300, 156, 30);
+		totalEmpSalarytextField.setText("<dynamic>");
+		panel_1.add(totalEmpSalarytextField);
+		
+		JLabel lblEmployeeSalary = new JLabel("Total Employee Salary (RM)");
+		lblEmployeeSalary.setForeground(new Color(0, 0, 0));
+		lblEmployeeSalary.setFont(new Font("Sitka Text", Font.PLAIN, 17));
+		lblEmployeeSalary.setBounds(20, 301, 229, 30);
+		panel_1.add(lblEmployeeSalary);
+		
+		JButton btnNetProfit = new JButton("Calculate Net Profit (RM)");
+		btnNetProfit.setBackground(new Color(250, 235, 215));
+		btnNetProfit.setBounds(10, 347, 243, 41);
+		panel_1.add(btnNetProfit);
+		btnNetProfit.setFont(new Font("STXinwei", Font.PLAIN, 19));
+		
+		JLabel lblEventCat = new JLabel("Type of Cloth");
+		lblEventCat.setForeground(new Color(0, 0, 0));
+		lblEventCat.setBounds(20, 32, 150, 30);
+		panel_1.add(lblEventCat);
+		lblEventCat.setFont(new Font("Sitka Text", Font.PLAIN, 17));
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBackground(new Color(250, 235, 215));
+		comboBox.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Select", "Fashion Modern", "Traditional Customs", "Dinner Dress"}));
+		comboBox.setBounds(146, 32, 172, 24);
+		panel_1.add(comboBox);
+		
+		
+	
+			
+		btnNetProfit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				DefaultTableModel model = (DefaultTableModel) FinanceTable.getModel();
+				
+			    // iterate over all columns
+			    for (int i = 0 ; i < model.getRowCount() ; i++) {
+			        // null or not Integer will throw exception
+			        String s = String.valueOf(model.getValueAt(i, 8));
+			        
+			        netProfit += Double.parseDouble(s);
+			    }
+			    textField_1 = new JTextField();
+				textField_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
+				textField_1.setEditable(false);
+				textField_1.setBounds(223, 355, 162, 30);
+				panel_1.add(textField_1);
+				textField_1.setColumns(10);
+				String output=String.valueOf(netProfit);
+				textField_1.setText(output);
+			}
+			});
+		
+		
+		JPanel panel_1_2 = new JPanel();
+		panel_1_2.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(139, 0, 0)));
+		panel_1_2.setBackground(new Color(250, 240, 230));
+		panel_1_2.setBounds(452, 105, 549, 340);
+		panel.add(panel_1_2);
+		panel_1_2.setLayout(null);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 10, 529, 269);
+		panel_1_2.add(scrollPane);
+
+		FinanceTable = new JTable();
+		FinanceTable.setFont(new Font("Tahoma", Font.BOLD, 10));
+		FinanceTable.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Type of cloth", "Quantity Weekdays", "Quantity Weekend", "Price amount", "Expenses", "Total Salary", "Cost", "Earning", "Profit"
+			}
+		));
+		FinanceTable.getColumnModel().getColumn(0).setPreferredWidth(131);
+		FinanceTable.getColumnModel().getColumn(1).setPreferredWidth(102);
+		FinanceTable.getColumnModel().getColumn(2).setPreferredWidth(98);
+		FinanceTable.getColumnModel().getColumn(3).setPreferredWidth(82);
+		FinanceTable.getColumnModel().getColumn(4).setPreferredWidth(54);
+		FinanceTable.getColumnModel().getColumn(5).setPreferredWidth(81);
+		FinanceTable.getColumnModel().getColumn(6).setPreferredWidth(57);
+		FinanceTable.getColumnModel().getColumn(7).setMinWidth(18);
+		scrollPane.setViewportView(FinanceTable);
+		
+	
+
+		JButton btnUpload = new JButton("Upload");
+		btnUpload.setBackground(new Color(250, 235, 215));
+		btnUpload.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {//2.2 Exception Handling
+					File file = new File("C:\\Users\\Lenovo\\OneDrive - UNIVERSITY UTARA MALAYSIA\\Desktop\\PROG2\\Finance.txt");
+					if (!file.exists()) {	//2.3 File IO
+						file.createNewFile();
+					}
+					FileWriter fw = new FileWriter(file.getAbsoluteFile());
+					BufferedWriter bw = new BufferedWriter(fw);
+				
+					bw.write(
+							"\n__________________________________________________________________________________________________________________________________\n");
+					for (int i = 0; i < FinanceTable.getRowCount(); i++) {
+						for (int j = 0; j < FinanceTable.getColumnCount(); j++) {
+							bw.write(FinanceTable.getModel().getValueAt(i, j) + "		|");
+						}
+						bw.write(
+								"\n__________________________________________________________________________________________________________________________________\n");
+					}
+					bw.close();
+					fw.close();
+					JOptionPane.showMessageDialog(null, "Data Exported!");
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
+		btnUpload.setFont(new Font("STXinwei", Font.PLAIN, 23));
+		btnUpload.setBounds(140, 289, 129, 35);
+		panel_1_2.add(btnUpload);
+		
+				JButton btnPrint = new JButton("Print");
+				btnPrint.setBackground(new Color(250, 235, 215));
+				btnPrint.setBounds(336, 289, 129, 35);
+				panel_1_2.add(btnPrint);
+				btnPrint.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						try {//2.2 Exception Handling
+							FinanceTable.print();
+						} catch (java.awt.print.PrinterException e) {
+							System.err.format("No printer found!", e.getMessage());
+						}
+					}
+				});
+				btnPrint.setFont(new Font("STXinwei", Font.PLAIN, 23));
+
+		JPanel panel_1_1_1_1 = new JPanel();
+		panel_1_1_1_1.setLayout(null);
+		panel_1_1_1_1.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(128, 0, 0)));
+		panel_1_1_1_1.setBackground(new Color(250, 240, 230));
+		panel_1_1_1_1.setBounds(21, 456, 957, 70);
+		panel.add(panel_1_1_1_1);
+
+		JButton btnAddRecord = new JButton("Add Record");
+		btnAddRecord.setBackground(new Color(250, 235, 215));
+		btnAddRecord.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try { // 2.2 Exception Handling
+				double registerFee = 0;
+				 Discount dd=new WeekendDiscountRate();
+				CustomerRegistration pr=new CustomerRegistration();
+				
+				if(comboBox.getSelectedItem().equals("Fashion Modern")) 
+					if (pr.getFashionModernFee()==null) {
+						registerFee=15;
+					}
+					else {registerFee=Double.parseDouble(pr.getFashionModernFee());
+				}
+					
+					if(comboBox.getSelectedItem().equals("Traditional Customs")) 
+					if (pr.getTraditionalCustomsFee()==null) {
+						registerFee=10;
+					}
+					else {registerFee=Double.parseDouble(pr.getTraditionalCustomsFee());
+					}
+				
+				 if(comboBox.getSelectedItem().equals("Dinner Dress")) 
+					if (pr.getDinnerDressFee()==null) {
+						registerFee=5;
+					}else {registerFee=Double.parseDouble(pr.getDinnerDressFee());
+					}
+				
+				int customerWd= Integer.parseInt(QweekdaysTextField.getText());
+				int customertWk= Integer.parseInt(QWeekendTextField.getText());
+				
+				double answerEarn=(customerWd*registerFee)+(customertWk*(registerFee*(1-dd.discountRate())));
+				String earning=Double.toString(answerEarn);
+				
+				double price= Integer.parseInt(PriceTextField.getText());
+				double fee= Integer.parseInt(FeesTextField.getText());
+				double totalEmpSalary= Double.parseDouble(totalEmpSalarytextField.getText());
+				String totalSalary = Double.toString(totalEmpSalary);
+				double answerCost= price+fee+totalEmpSalary;
+				String cost=Double.toString(answerCost);
+				
+				double answerProfit= answerEarn-answerCost;
+				String profit= Double.toString(answerProfit);
+				DefaultTableModel model = (DefaultTableModel) FinanceTable.getModel();
+				model.addRow(new Object[] { comboBox.getSelectedItem(),QweekdaysTextField.getText(),QWeekendTextField.getText(), PriceTextField.getText(), FeesTextField.getText(),
+						totalSalary,cost,earning,profit,
+
+				});
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnAddRecord.setBounds(10, 18, 171, 35);
+		panel_1_1_1_1.add(btnAddRecord);
+		btnAddRecord.setFont(new Font("STXinwei", Font.PLAIN, 22));
+
+		JButton btnReset = new JButton("Reset");
+		btnReset.setBackground(new Color(250, 235, 215));
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comboBox.setSelectedItem("Select type of cloth!");
+				QweekdaysTextField.setText("");
+				QWeekendTextField.setText("");
+				PriceTextField.setText("");
+				FeesTextField.setText("");
+				
+				
+			}
+		});
+		btnReset.setBounds(362, 18, 108, 35);
+		panel_1_1_1_1.add(btnReset);
+		btnReset.setFont(new Font("STXinwei", Font.PLAIN, 23));
+
+		JButton btnDelete = new JButton("Delete");
+		btnDelete.setBackground(new Color(250, 235, 215));
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel model = (DefaultTableModel) FinanceTable.getModel();
+				if (FinanceTable.getSelectedRow() == -1) {
+					if (FinanceTable.getRowCount() == 0) {
+						JOptionPane.showMessageDialog(null, "No data to delete!", "Customer Registration System",
+								JOptionPane.OK_OPTION);
+					} else {
+						JOptionPane.showMessageDialog(null, "Select a row to delete!", "Customer Registration System",
+								JOptionPane.OK_OPTION);
+					}
+				} else {
+					model.removeRow(FinanceTable.getSelectedRow());
+				}
+			}
+		});
+		btnDelete.setBounds(501, 18, 129, 35);
+		panel_1_1_1_1.add(btnDelete);
+		btnDelete.setFont(new Font("STXinwei", Font.PLAIN, 23));
+
+		JButton btnExit = new JButton("Exit");
+		btnExit.setBackground(new Color(250, 235, 215));
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame = new JFrame();
+				if (JOptionPane.showConfirmDialog(frame, "Confirm if you want to exit!",
+						"Colthing Rental Business", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
+					System.exit(0);
+				}
+			}
+		});
+		btnExit.setBounds(818, 18, 129, 35);
+		panel_1_1_1_1.add(btnExit);
+		btnExit.setFont(new Font("STXinwei", Font.PLAIN, 23));
+
+		JButton btnUpdate = new JButton("Update");
+		btnUpdate.setBackground(new Color(250, 235, 215));
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				DefaultTableModel model = (DefaultTableModel) FinanceTable.getModel();
+				int i = FinanceTable.getSelectedRow();
+				if (i >= 0) // if single row is selected than update
+				{
+					model.setValueAt(comboBox.getSelectedItem(), i, 0);
+					model.setValueAt(QweekdaysTextField.getText(), i, 1);
+					model.setValueAt(QWeekendTextField.getText(), i, 2);
+					model.setValueAt(PriceTextField.getText(), i, 3);
+					model.setValueAt(FeesTextField.getText(), i, 4);
+					model.setValueAt(totalEmpSalarytextField.getText(), i, 5);
+					
+					JOptionPane.showMessageDialog(null, "Update Successfully!");
+				} else {
+					JOptionPane.showMessageDialog(null, "Please Select a Row First!");
+				}
+			}
+		});
+		btnUpdate.setBounds(207, 18, 133, 35);
+		panel_1_1_1_1.add(btnUpdate);
+		btnUpdate.setFont(new Font("STXinwei", Font.PLAIN, 23));
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.setBackground(new Color(250, 235, 215));
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Employee frame = new Employee();
+				frame.setModalExclusionType(null);
+				frame.setVisible(true);
+				dispose();
+				
+			}
+		});
+		btnBack.setFont(new Font("STXinwei", Font.PLAIN, 23));
+		btnBack.setBounds(658, 18, 129, 35);
+		panel_1_1_1_1.add(btnBack);
+		
+		JLabel lblNewLabel_1 = new JLabel("Finance Information");
+		lblNewLabel_1.setForeground(new Color(0, 0, 0));
+		lblNewLabel_1.setFont(new Font("Script MT Bold", Font.PLAIN, 35));
+		lblNewLabel_1.setBackground(new Color(255, 255, 255));
+		lblNewLabel_1.setBounds(576, 45, 361, 50);
+		panel.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBackground(new Color(250, 240, 230));
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Lenovo\\Downloads\\financepic.jfif"));
+		lblNewLabel.setBounds(0, 0, 1017, 526);
 		panel.add(lblNewLabel);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setLayout(null);
-		panel_2.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(210, 105, 30)));
-		panel_2.setBackground(new Color(250, 240, 230));
-		panel_2.setBounds(261, 419, 372, 110);
-		panel.add(panel_2);
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setBounds(21, 10, 421, 398);
+		panel.add(lblNewLabel_2);
+		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\Lenovo\\Downloads\\clothpic.jpeg"));
 		
-		JLabel lblEmployeeSalary = new JLabel("Employee Salary (RM)");
-		lblEmployeeSalary.setFont(new Font("STXihei", Font.BOLD, 20));
-		lblEmployeeSalary.setBounds(12, 13, 231, 33);
-		panel_2.add(lblEmployeeSalary);
 		
-		textFieldSalary = new JTextField();
-		textFieldSalary.setBackground(new Color(230, 230, 250));
-		JTable t = Employee.getTablesalary();
-		String salary="";
-				for(int i = 0; i<t.getRowCount(); i++) { 
-				salary= String.valueOf(t.getValueAt(i, 0));}
-				textFieldSalary.setText(salary);
-		textFieldSalary.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textFieldSalary.setColumns(10);
-		textFieldSalary.setBounds(259, 14, 103, 33);
-		panel_2.add(textFieldSalary);
 		
-		JLabel lblSalesrm = new JLabel("Sales (RM)");
-		lblSalesrm.setBounds(23, 67, 124, 33);
-		panel_2.add(lblSalesrm);
-		lblSalesrm.setFont(new Font("STXihei", Font.BOLD, 20));
 		
-		textFieldSales = new JTextField();
-		textFieldSales.setBackground(new Color(230, 230, 250));
-		JTable t1 = CustomerRegistration.getTablesales();
-		String sales="";
-				for(int i = 0; i<t.getRowCount(); i++) { 
-				sales= String.valueOf(t1.getValueAt(i, 0));}
-				textFieldSales.setText(sales);
-		textFieldSales.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textFieldSales.setColumns(10);
-		textFieldSales.setBounds(259, 68, 103, 33);
-		panel_2.add(textFieldSales);
 		
-		JPanel panel_4 = new JPanel();
-		panel_4.setLayout(null);
-		panel_4.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(210, 105, 30)));
-		panel_4.setBackground(new Color(250, 240, 230));
-		panel_4.setBounds(24, 103, 395, 285);
-		panel.add(panel_4);
-		
-		JLabel lblF = new JLabel("Financial Statement");
-		lblF.setFont(new Font("STXihei", Font.BOLD, 25));
-		lblF.setBounds(10, 16, 283, 33);
-		panel_4.add(lblF);
-		
-		textFieldTE = new JTextField();
-		textFieldTE.setBackground(new Color(230, 230, 250));
-		textFieldTE.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textFieldTE.setColumns(10);
-		textFieldTE.setBounds(259, 102, 124, 33);
-		panel_4.add(textFieldTE);
-		
-		JLabel lblTotalExpensesrm = new JLabel("Total Expenses (RM)");
-		lblTotalExpensesrm.setFont(new Font("STXinwei", Font.BOLD, 20));
-		lblTotalExpensesrm.setBounds(12, 102, 214, 33);
-		panel_4.add(lblTotalExpensesrm);
-		
-		JLabel lblSalesrm_1 = new JLabel("Total Sales (RM)");
-		lblSalesrm_1.setFont(new Font("STXinwei", Font.BOLD, 20));
-		lblSalesrm_1.setBounds(12, 59, 214, 33);
-		panel_4.add(lblSalesrm_1);
-		
-		textFieldSalesss = new JTextField();
-		textFieldSalesss.setBackground(new Color(230, 230, 250));
-		textFieldSalesss.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textFieldSalesss.setColumns(10);
-		textFieldSalesss.setBounds(259, 59, 124, 33);
-		panel_4.add(textFieldSalesss);
-		
-		JLabel lblEmployeeSalaryrm = new JLabel("Employee Salary (RM)");
-		lblEmployeeSalaryrm.setFont(new Font("STXinwei", Font.BOLD, 20));
-		lblEmployeeSalaryrm.setBounds(12, 148, 225, 33);
-		panel_4.add(lblEmployeeSalaryrm);
-		
-		textFieldES = new JTextField();
-		textFieldES.setBackground(new Color(230, 230, 250));
-		textFieldES.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textFieldES.setColumns(10);
-		textFieldES.setBounds(259, 148, 124, 33);
-		panel_4.add(textFieldES);
-		
-		JLabel lblNetProfitrm = new JLabel("Net Profit (RM)");
-		lblNetProfitrm.setFont(new Font("STXihei", Font.BOLD, 20));
-		lblNetProfitrm.setBounds(10, 190, 165, 33);
-		panel_4.add(lblNetProfitrm);
-		
-		textFieldNProfit = new JTextField();
-		textFieldNProfit.setBackground(new Color(230, 230, 250));
-		textFieldNProfit.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textFieldNProfit.setColumns(10);
-		textFieldNProfit.setBounds(259, 191, 124, 33);
-		panel_4.add(textFieldNProfit);
-		
-		JButton btnExit_1 = new JButton("Exit");
-		btnExit_1.setBackground(new Color(250, 235, 215));
-		btnExit_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Login L = new Login();
-				L.setModalExclusionType(null);
-				L.setVisible(true);
-				dispose();
-			}
-		});
-		btnExit_1.setFont(new Font("STZhongsong", Font.BOLD, 20));
-		btnExit_1.setBounds(531, 563, 99, 55);
-		panel.add(btnExit_1);
-		
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 991, 26);
-		panel.add(menuBar);
-		
-		JMenu mnProfile = new JMenu("Profile");
-		mnProfile.setForeground(Color.BLACK);
-		mnProfile.setFont(new Font("SansSerif", Font.BOLD, 15));
-		menuBar.add(mnProfile);
-		
-		JMenuItem mntmProfile = new JMenuItem("Profile");
-		mntmProfile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AdminCompany ACB = new AdminCompany();
-				ACB.setModalExclusionType(null);
-				ACB.setVisible(true);
-				dispose();
-			}
-		});
-		mntmProfile.setForeground(Color.BLACK);
-		mntmProfile.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		mnProfile.add(mntmProfile);
-		
-		JMenu mnAdvertise = new JMenu("Advertisement");
-		mnAdvertise.setForeground(Color.BLACK);
-		mnAdvertise.setFont(new Font("SansSerif", Font.BOLD, 15));
-		menuBar.add(mnAdvertise);
-		
-		JMenuItem mntmAdvertise = new JMenuItem("Advertisement");
-		mntmAdvertise.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Advertisement A = new Advertisement();
-				A.setModalExclusionType(null);
-				A.setVisible(true);
-				dispose();
-			}
-		});
-		mntmAdvertise.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		mnAdvertise.add(mntmAdvertise);
-		
-		JMenu clothingInfo = new JMenu("Clothing Info");
-		clothingInfo.setForeground(Color.BLACK);
-		clothingInfo.setFont(new Font("SansSerif", Font.BOLD, 15));
-		menuBar.add(clothingInfo);
-		
-		JMenuItem mntmCloth = new JMenuItem("Clothing Info");
-		mntmCloth.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AdminInfo AVI = new AdminInfo();
-				AVI.setModalExclusionType(null);
-				AVI.setVisible(true);
-				dispose();
-			}
-		});
-		mntmCloth.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		clothingInfo.add(mntmCloth);
-		
-		JMenu mnEmployee = new JMenu("Employee");
-		mnEmployee.setForeground(Color.BLACK);
-		mnEmployee.setFont(new Font("SansSerif", Font.BOLD, 15));
-		menuBar.add(mnEmployee);
-		
-		JMenuItem mntnEmployee = new JMenuItem("Employee");
-		mntnEmployee.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Employee E = new Employee();
-				E.setModalExclusionType(null);
-				E.setVisible(true);
-				dispose();
-			}
-		});
-		mntnEmployee.setForeground(Color.BLACK);
-		mntnEmployee.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		mnEmployee.add(mntnEmployee);
-		
-		JMenu mnFinance = new JMenu("Finance");
-		mnFinance.setForeground(Color.BLACK);
-		mnFinance.setFont(new Font("SansSerif", Font.BOLD, 15));
-		menuBar.add(mnFinance);
-		
-		JMenuItem mntmFinance = new JMenuItem("Finance");
-		mntmFinance.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Finance F = new Finance();
-				F.setModalExclusionType(null);
-				F.setVisible(true);
-				dispose();
-			}
-		});
-		mntmFinance.setForeground(Color.BLACK);
-		mntmFinance.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		mnFinance.add(mntmFinance);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(476, 103, 395, 285);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-		panel_1.setBorder(new MatteBorder(3, 3, 3, 3, (Color) new Color(210, 105, 30)));
-		panel_1.setBackground(new Color(250, 240, 230));
-		
-		JLabel lblNewLabel_1 = new JLabel("Expenses");
-		lblNewLabel_1.setFont(new Font("STXihei", Font.BOLD, 20));
-		lblNewLabel_1.setBounds(12, 13, 104, 33);
-		panel_1.add(lblNewLabel_1);
-		
-		JLabel lblUF = new JLabel("Utility fee (RM)");
-		lblUF.setFont(new Font("STXinwei", Font.PLAIN, 18));
-		lblUF.setBounds(12, 44, 130, 33);
-		panel_1.add(lblUF);
-		
-		JLabel lblMaintenanceFeerm = new JLabel("Maintenance fee (RM)");
-		lblMaintenanceFeerm.setFont(new Font("STXinwei", Font.PLAIN, 18));
-		lblMaintenanceFeerm.setBounds(12, 79, 232, 33);
-		panel_1.add(lblMaintenanceFeerm);
-		
-		JLabel lblAdvertisementFeerm = new JLabel("Advertisement fee (RM)");
-		lblAdvertisementFeerm.setFont(new Font("STXinwei", Font.PLAIN, 18));
-		lblAdvertisementFeerm.setBounds(12, 113, 187, 33);
-		panel_1.add(lblAdvertisementFeerm);
-		
-		JLabel lblGeneraltFeerm = new JLabel("General expenses (RM)");
-		lblGeneraltFeerm.setFont(new Font("STXinwei", Font.PLAIN, 18));
-		lblGeneraltFeerm.setBounds(12, 147, 187, 33);
-		panel_1.add(lblGeneraltFeerm);
-		
-		JButton btnNewButton = new JButton("Total Expenses (RM)");
-		btnNewButton.setBackground(new Color(250, 235, 215));
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				double uf,mf,af,ge, totalE;
-				//2.2 Exception Handling
-				try {
-					    uf = Double.parseDouble(textFieldUF.getText());
-					    mf = Double.parseDouble(textFieldMF.getText());
-					    af = Double.parseDouble(textFieldAF.getText());
-					    ge = Double.parseDouble(textFieldGE.getText());
-					  
-					    totalE = uf+mf+af+ge;
-					    textFieldTotalEx.setText(Double.toString(totalE));
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, "Please enter the number correctly");
-				}
-			}
-		});
-		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton.setFont(new Font("STZhongsong", Font.BOLD, 18));
-		btnNewButton.setBounds(12, 192, 232, 41);
-		panel_1.add(btnNewButton);
-		
-		textFieldUF = new JTextField();
-		textFieldUF.setBackground(new Color(230, 230, 250));
-		textFieldUF.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textFieldUF.setBounds(220, 47, 141, 22);
-		panel_1.add(textFieldUF);
-		textFieldUF.setColumns(10);
-		
-		textFieldMF = new JTextField();
-		textFieldMF.setBackground(new Color(230, 230, 250));
-		textFieldMF.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textFieldMF.setColumns(10);
-		textFieldMF.setBounds(220, 82, 141, 22);
-		panel_1.add(textFieldMF);
-		
-		textFieldAF = new JTextField();
-		textFieldAF.setBackground(new Color(230, 230, 250));
-		textFieldAF.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textFieldAF.setColumns(10);
-		textFieldAF.setBounds(220, 116, 141, 22);
-		panel_1.add(textFieldAF);
-		
-		textFieldGE = new JTextField();
-		textFieldGE.setBackground(new Color(230, 230, 250));
-		textFieldGE.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textFieldGE.setColumns(10);
-		textFieldGE.setBounds(220, 150, 141, 22);
-		panel_1.add(textFieldGE);
-		
-		textFieldTotalEx = new JTextField();
-		textFieldTotalEx.setBackground(new Color(230, 230, 250));
-		textFieldTotalEx.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textFieldTotalEx.setBounds(253, 196, 104, 33);
-		panel_1.add(textFieldTotalEx);
-		textFieldTotalEx.setColumns(10);
-		
-		JButton btnCalculate = new JButton("Calculate");
-		btnCalculate.setBounds(273, 563, 139, 55);
-		panel.add(btnCalculate);
-		btnCalculate.setBackground(new Color(250, 235, 215));
-		btnCalculate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//2.2 Exception handling
-				try {
-				textFieldSalesss.setText(textFieldSales.getText());
-				textFieldTE.setText(textFieldTotalEx.getText());
-				textFieldES.setText(textFieldSalary.getText());
-				
-				double Sales = Double.parseDouble(textFieldSalesss.getText());
-				double Exp = Double.parseDouble(textFieldTE.getText());
-				double salary = Double.parseDouble(textFieldES.getText());
-				
-				double netprofit = Sales - Exp - salary;
-				textFieldNProfit.setText(Double.toString(netprofit));
-				
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, "Please enter the data correctly!", "Error.", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		btnCalculate.setFont(new Font("STZhongsong", Font.BOLD, 20));
-		
-		JButton buttonReset = new JButton("Reset");
-		buttonReset.setBounds(422, 563, 99, 55);
-		panel.add(buttonReset);
-		buttonReset.setBackground(new Color(250, 235, 215));
-		buttonReset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				textFieldUF.setText("");
-				textFieldMF.setText("");
-				textFieldAF.setText("");
-				textFieldGE.setText("");
-				textFieldTotalEx.setText("");
-				textFieldSalesss.setText("");
-				textFieldTE.setText("");
-				textFieldES.setText("");
-				textFieldNProfit.setText("");
-			}
-		});
-		buttonReset.setFont(new Font("STZhongsong", Font.BOLD, 20));
 	}
-}
+} //end class of Finance
