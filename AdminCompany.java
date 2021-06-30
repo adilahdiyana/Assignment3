@@ -9,34 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
-import javax.swing.border.MatteBorder;
-import java.awt.Font;
-import java.awt.Window;
 
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-
-public class AdminCompany extends JFrame {
 
 	private JPanel contentPane;
-	private static JTable table;
-	private JTextField textFieldName;
-	private JTextField textFieldAddress;
-	private JTextField textFieldPhone;
 
 	/**
 	 * Launch the application.
@@ -44,7 +19,6 @@ public class AdminCompany extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				//2.2 Exception Handling
 				try {
 					AdminCompany frame = new AdminCompany();
 					frame.setVisible(true);
@@ -59,270 +33,125 @@ public class AdminCompany extends JFrame {
 	 * Create the frame.
 	 */
 	public AdminCompany() {
+		setTitle("Clothing Rental Bussiness (ADMIN)");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1082, 605);
+		setBounds(0, 0, 1023, 577); // set for 0,0,1400,800
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
-		panel.setForeground(new Color(0, 100, 0));
-		panel.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(210, 105, 30)));
 		panel.setBackground(new Color(250, 240, 230));
-		panel.setBounds(0, 0, 1064, 558);
+		panel.setBorder(new MatteBorder(6, 6, 6, 6, (Color) new Color(139, 0, 0)));
+		panel.setBounds(0, 0, 1009, 518);
 		contentPane.add(panel);
-		panel.setLayout(null);;
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setLayout(null);
-		panel_2.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(210, 105, 30)));
-		panel_2.setBackground(new Color(250, 240, 230));
-		panel_2.setBounds(12, 146, 1040, 308);
-		panel.add(panel_2);
-		
-		JLabel lblAddress = new JLabel("\r\n Address");
-		lblAddress.setFont(new Font("STXinwei", Font.BOLD, 20));
-		lblAddress.setBounds(396, 16, 255, 49);
-		panel_2.add(lblAddress);
-		
-		JLabel lblPhone = new JLabel("Phone Number");
-		lblPhone.setFont(new Font("STXinwei", Font.BOLD, 20));
-		lblPhone.setBounds(731, 16, 255, 49);
-		panel_2.add(lblPhone);
-		
-		JLabel lblCompanyWebsite = new JLabel("Company Website");
-		lblCompanyWebsite.setFont(new Font("STXinwei", Font.BOLD, 20));
-		lblCompanyWebsite.setBounds(47, 166, 255, 49);
-		panel_2.add(lblCompanyWebsite);
-		
-		JButton btnNewButton = new JButton("https://www.instagram.com/rental_clothing_world/");
-		btnNewButton.setBackground(new Color(250, 235, 215));
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Desktop browser = Desktop.getDesktop();
-				//2.2 Exception Handling
-				try {
-					browser.browse(new URI("https://www.facebook.com/keretasewamias"));
-				}
-				
-				catch(IOException err) {
-					
-				}
-				catch(URISyntaxException err) {
-					
-				}
-			}
-		});
-		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewButton.setFont(new Font("DialogInput", Font.BOLD, 20));
-		btnNewButton.setBounds(237, 176, 701, 25);
-		panel_2.add(btnNewButton);
-		
-		JButton btnConfirm = new JButton("Confirm");
-		btnConfirm.setBackground(new Color(250, 235, 215));
-		btnConfirm.setBounds(354, 241, 130, 59);
-		panel_2.add(btnConfirm);
-		btnConfirm.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//2.2 Exception handling
-				try {
-				DefaultTableModel model = (DefaultTableModel) table.getModel();
-				model.addRow(new Object[]{
-						textFieldName.getText(),	
-						textFieldAddress.getText(),
-						textFieldPhone.getText(),
-				});
-				
-				if (table.getSelectedRow() == -1) {
-					if (table.getRowCount() == 0) {
-						JOptionPane.showMessageDialog(null, "Discount Update confirmed", "Advertisement",
-								JOptionPane.OK_OPTION);
-					}
-				}
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, "Please enter the right USER NAME and PASSWORD!", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		btnConfirm.setFont(new Font("STZhongsong", Font.PLAIN, 20));
-		
-		JLabel lblCompanyName = new JLabel("Name");
-		lblCompanyName.setFont(new Font("STXinwei", Font.BOLD, 20));
-		lblCompanyName.setBounds(98, 16, 255, 49);
-		panel_2.add(lblCompanyName);
-		
-		textFieldName = new JTextField();
-		textFieldName.setBackground(new Color(230, 230, 250));
-		textFieldName.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textFieldName.setBounds(34, 75, 236, 40);
-		panel_2.add(textFieldName);
-		textFieldName.setColumns(10);
-		
-		textFieldAddress = new JTextField();
-		textFieldAddress.setBackground(new Color(230, 230, 250));
-		textFieldAddress.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textFieldAddress.setColumns(10);
-		textFieldAddress.setBounds(354, 75, 255, 40);
-		panel_2.add(textFieldAddress);
-		
-		textFieldPhone = new JTextField();
-		textFieldPhone.setBackground(new Color(230, 230, 250));
-		textFieldPhone.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		textFieldPhone.setColumns(10);
-		textFieldPhone.setBounds(695, 75, 243, 40);
-		panel_2.add(textFieldPhone);
-		
-		JButton btnExit = new JButton("Exit");
-		btnExit.setBounds(599, 243, 99, 55);
-		panel_2.add(btnExit);
-		btnExit.setBackground(new Color(250, 235, 215));
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Login L = new Login();
-				L.setModalExclusionType(null);
-				L.setVisible(true);
-				dispose();
-			}
-		});
-		btnExit.setFont(new Font("STZhongsong", Font.BOLD, 20));
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(22, 467, 1030, 78);
-		panel.add(scrollPane);
-		
-		//2.3 File IO
-		table = new JTable();
-		table.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Name", "Address", "Phone"
-			}
-		));
-		scrollPane.setViewportView(table);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setLayout(null);
-		panel_1.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(210, 105, 30)));
-		panel_1.setBackground(new Color(250, 240, 230));
-		panel_1.setBounds(199, 56, 629, 72);
-		panel.add(panel_1);
-		
-		JLabel lblNewLabel = new JLabel("Company Background");
-		lblNewLabel.setBackground(new Color(250, 240, 230));
-		lblNewLabel.setFont(new Font("Script MT Bold", Font.BOLD, 30));
-		lblNewLabel.setBounds(145, 16, 457, 46);
-		panel_1.add(lblNewLabel);
-		
+		panel.setLayout(null);
+
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 1064, 26);
-		panel.add(menuBar);
-		
-		JMenu mnProfile = new JMenu("Profile");
-		mnProfile.setBackground(new Color(233, 150, 122));
-		mnProfile.setForeground(Color.BLACK);
-		mnProfile.setFont(new Font("SansSerif", Font.BOLD, 15));
-		menuBar.add(mnProfile);
-		
-		JMenuItem mntmProfile = new JMenuItem("Profile");
-		mntmProfile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				AdminCompany ACB = new AdminCompany();
-				ACB.setModalExclusionType(null);
-				ACB.setVisible(true);
-				dispose();
-			}
-		});
-		mntmProfile.setForeground(Color.BLACK);
-		mntmProfile.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		mnProfile.add(mntmProfile);
-		
-		JMenu mnAdvertise = new JMenu("Advertisement");
-		mnAdvertise.setBackground(new Color(233, 150, 122));
-		mnAdvertise.setForeground(Color.BLACK);
-		mnAdvertise.setFont(new Font("SansSerif", Font.BOLD, 15));
-		menuBar.add(mnAdvertise);
-		
-		JMenuItem mntmAdvertise = new JMenuItem("Advertisement");
-		mntmAdvertise.addActionListener(new ActionListener() {
+		setJMenuBar(menuBar);
+		JMenu mnNewMenu_1 = new JMenu("About Us");
+		menuBar.add(mnNewMenu_1);
+
+		JMenuItem mntmNewMenuItem = new JMenuItem("Rental");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Advertisement A = new Advertisement();
-				A.setModalExclusionType(null);
-				A.setVisible(true);
+				AdminCompany frame = new AdminCompany();
+				frame.setModalExclusionType(null);
+				frame.setVisible(true);
 				dispose();
 			}
 		});
-		mntmAdvertise.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		mnAdvertise.add(mntmAdvertise);
-		
-		JMenu clothingInfo = new JMenu("Clothing Info");
-		clothingInfo.setBackground(new Color(233, 150, 122));
-		clothingInfo.setForeground(Color.BLACK);
-		clothingInfo.setFont(new Font("SansSerif", Font.BOLD, 15));
-		menuBar.add(clothingInfo);
-		
-		JMenuItem mntmCloth = new JMenuItem("Clothing Info");
-		mntmCloth.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AdminInfo AVI = new AdminInfo();
-				AVI.setModalExclusionType(null);
-				AVI.setVisible(true);
-				dispose();
-			}
-		});
-		mntmCloth.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		clothingInfo.add(mntmCloth);
-		
+		mnNewMenu_1.add(mntmNewMenuItem);
+
 		JMenu mnEmployee = new JMenu("Employee");
-		mnEmployee.setBackground(new Color(233, 150, 122));
-		mnEmployee.setForeground(Color.BLACK);
-		mnEmployee.setFont(new Font("SansSerif", Font.BOLD, 15));
 		menuBar.add(mnEmployee);
-		
-		JMenuItem mntnEmployee = new JMenuItem("Employee");
-		mntnEmployee.addActionListener(new ActionListener() {
+
+		JMenuItem employeeInfo = new JMenuItem("Employee Information");
+		mnEmployee.add(employeeInfo);
+		employeeInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Employee E = new Employee();
-				E.setModalExclusionType(null);
-				E.setVisible(true);
+				Employee frame = new Employee();
+				frame.setModalExclusionType(null);
+				frame.setVisible(true);
 				dispose();
 			}
 		});
-		mntnEmployee.setForeground(Color.BLACK);
-		mntnEmployee.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		mnEmployee.add(mntnEmployee);
+	
+		JMenu mnClothInfo = new JMenu("Cloth Info ");
+		menuBar.add(mnClothInfo);
 		
-		JMenu mnFinance = new JMenu("Finance");
-		mnFinance.setBackground(new Color(233, 150, 122));
-		mnFinance.setForeground(Color.BLACK);
-		mnFinance.setFont(new Font("SansSerif", Font.BOLD, 15));
-		menuBar.add(mnFinance);
-		
-		JMenuItem mntmFinance = new JMenuItem("Finance");
-		mntmFinance.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Finance F = new Finance();
-				F.setModalExclusionType(null);
-				F.setVisible(true);
+		JMenuItem mntmNewMenuItem_7_1 = new JMenuItem("Update");
+		mntmNewMenuItem_7_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try { // 2.2 Exception Handling
+				ClothUpdate frame = new ClothUpdate();
+				frame.setModalExclusionType(null);
+				frame.setVisible(true);
 				dispose();
 			}
+			catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			}
 		});
-		mntmFinance.setForeground(Color.BLACK);
-		mntmFinance.setFont(new Font("SansSerif", Font.PLAIN, 15));
-		mnFinance.add(mntmFinance);
-	}
-	public static void AddRowToJtable(Object[] dataRow) {
-		DefaultTableModel model = (DefaultTableModel)getTable().getModel();
-		model.addRow(dataRow);
-	}
+		mnClothInfo.add(mntmNewMenuItem_7_1);
+		
+				JMenu mnNewMenu = new JMenu("AdminCompany");
+				menuBar.add(mnNewMenu);
+				
+				JMenuItem mntmNewMenuLogout = new JMenuItem("Log out");
+				mntmNewMenuLogout.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try { // 2.2 Exception Handling
+							ClothingRental frame = new ClothingRental();
+							if (JOptionPane.showConfirmDialog(frame, "Confirm if you want to Log Out",
+									"Company System", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_NO_OPTION) {
+							frame.setModalExclusionType(null);
+							frame.setVisible(true);
+								dispose();
+							}
+						}catch (Exception e1) {
+								e1.printStackTrace();
+							}	
+					}
+				});
+				mnNewMenu.add(mntmNewMenuLogout);
+							
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(670, 218, 329, 191);
+		panel.add(lblNewLabel_1);
+		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Lenovo\\Downloads\\kualalumpurpic.jfif"));
 
-	public static JTable getTable() {
-		return table;
-	}
+		JLabel lblLocation_1 = new JLabel("We are open at only Kuala Lumpur City!");
+		lblLocation_1.setFont(new Font("Sylfaen", Font.PLAIN, 20));
+		lblLocation_1.setBackground(Color.LIGHT_GRAY);
+		lblLocation_1.setBounds(687, 98, 312, 33);
+		panel.add(lblLocation_1);
 
-	public static void setTable(JTable table) {
-		AdminCompany.table = table;
+		JLabel lblOperatingHour = new JLabel("We are open at 10a.m~9p.m everyday!");
+		lblOperatingHour.setFont(new Font("Sylfaen", Font.PLAIN, 18));
+		lblOperatingHour.setBounds(697, 131, 312, 33);
+		panel.add(lblOperatingHour);
+
+		JLabel lblContact = new JLabel("Please contact us at 011-56815181 (Manager)\r\n");
+		lblContact.setFont(new Font("Sylfaen", Font.PLAIN, 16));
+		lblContact.setBounds(687, 161, 322, 33);
+		panel.add(lblContact);
+
+		JLabel lblName = new JLabel("Clothing Rental Bussiness");
+		lblName.setForeground(Color.BLACK);
+		lblName.setFont(new Font("Script MT Bold", Font.BOLD, 20));
+		lblName.setBounds(718, 48, 249, 61);
+		panel.add(lblName);
+
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 19));
+		lblNewLabel.setBackground(new Color(250, 235, 215));
+		lblNewLabel.setIcon(
+				new ImageIcon("C:\\Users\\Lenovo\\Downloads\\clothigpic.jfif"));
+		lblNewLabel.setBounds(10, 10, 660, 498);
+		panel.add(lblNewLabel);
+
 	}
-}
+} //end of AdminCompany class
